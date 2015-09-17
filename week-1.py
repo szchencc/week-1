@@ -28,7 +28,9 @@ cards = range(10)
 # Next, let's define a new class to represent each player in the game.
 
 class Player:
-    
+    playerID = 0
+    pot = 0
+    Playercard = 0  
     # create here two local variables to store a unique ID for each player and the player's current 'pot' of money
     # [FILL IN YOUR VARIABLES HERE]
     
@@ -36,31 +38,38 @@ class Player:
     
     def __init__(self, inputID, startingPot):
         # [CREATE YOUR INITIALIZATIONS HERE]
-        
+        self.playerID = inputID
+        self.pot = startingPot   
     # create a function for playing the game. This function should take on input for the card of the dealer.
     # it should then take a random card from 
     
     def play(self, dealerCard):
         # [CREATE CODE FOR SELECTING A RANDOM CARD]
-        
+        dealerCard = random.choice(cards)
         # here we should have a conditional that tests the player's card value against the dealer card
         # and returns a statement saying whether the player won or lost the hand
         # before return the statement, make sure to either add or subtract the stake from the player's pot so that
         # the 'pot' variable tracks the player's money
+    def play(self,playerCard):   
+        playerCard = random.choice(cards)    
         
+    def addpot(playerCard, dealerCard):        
         if playerCard < dealerCard:
             # [INCREMENT THE PLAYER'S POT, AND RETURN A MESSAGE]
+            self.pot -=gameStake
+            print 'player' + str(self.playerID) + ' lose ' + str(playerCard) + str(dealerCard)
         else:
             # [INCREMENT THE PLAYER'S POT, AND RETURN A MESSAGE]
-        
+            self.pot +=gameStake
+            print 'player' + str(self.playerID) + " win " + str(playerCard) + str(dealerCard)
     # create an accessor function to return the current value of the player's pot
     def returnPot(self):
         # [FILL IN THE RETURN STATEMENT]
-        
+        return self.pot   
     # create an accessor function to return the player's ID
     def returnID(self):
         # [FILL IN THE RETURN STATEMENT]
-
+        return self.playerID 
 
 # Next we will create some functions outside the class definition which will control the flow of the game
 # The first function will play one round. It will take as an input the collection of players, and iterate through each one,
@@ -79,7 +88,7 @@ def checkBalances(players):
     
     for player in players:
         #[PRINT OUT EACH PLAYER'S BALANCE BY USING EACH PLAYER'S ACCESSOR FUNCTIONS]
-  
+        print 'player' + str(player.playerID) + 'has $' + str(player.pot) + 'left'
   
 # Now we are ready to start the game. First we create an empy list to store the collection of players in the game
 
